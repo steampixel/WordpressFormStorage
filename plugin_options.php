@@ -34,10 +34,18 @@ add_action('admin_menu',function(){
               </tr>
 
               <tr valign="top">
-                <th scope="row">Allowed request keys</th>
+                <th scope="row">Allowed request keys (seperate by comma)</th>
                 <td>
                   <input style="width:100%;" type="text" name="spfs_allowed_request_keys" value="<?php echo esc_attr( get_option('spfs_allowed_request_keys','vorname, nachname, email') ); ?>" />
                   This keys will be recorded after form submission.
+                </td>
+              </tr>
+
+              <tr valign="top">
+                <th scope="row">Honeypod request keys (seperate by comma)</th>
+                <td>
+                  <input style="width:100%;" type="text" name="spfs_honeypod_request_keys" value="<?php echo esc_attr( get_option('spfs_honeypod_request_keys','honeypod') ); ?>" />
+                  If one of this fields was filled nothing will be stored.
                 </td>
               </tr>
 
@@ -59,5 +67,6 @@ add_action('admin_init',function(){
   register_setting( 'spfs-settings-group', 'spfs_allowed_file_extensions' );
   register_setting( 'spfs-settings-group', 'spfs_allowed_request_keys' );
   register_setting( 'spfs-settings-group', 'spfs_record_trigger_keys' );
+  register_setting( 'spfs-settings-group', 'spfs_honeypod_request_keys' );
 
 });

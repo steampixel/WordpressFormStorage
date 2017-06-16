@@ -13,6 +13,7 @@ add_action('plugins_loaded', function(){
 
   $store_this_request = false;
 
+  //Check if this request shoud be stored
   $record_trigger_keys = explode(',',get_option('spfs_record_trigger_keys','store_form'));
 
   foreach($record_trigger_keys as $record_trigger_key){
@@ -22,6 +23,24 @@ add_action('plugins_loaded', function(){
     foreach($_REQUEST as $key => $value){
       if ($key==$record_trigger_key) {
         $store_this_request = true;
+        break;
+      }
+    }
+
+  }
+
+  //Perform a simple honeypod check
+  $honeypod_request_keys = explode(',',get_option('spfs_honeypod_request_keys'));
+
+  foreach($honeypod_request_keys as $honeypod_request_key){
+
+    $honeypod_request_key = trim($honeypod_request_key);
+
+    foreach($_REQUEST as $key => $value){
+      if ($key==$honeypod_request_key) {
+        if($value!=''){//This field has to be empty!
+          $store_this_request = false;
+        }
         break;
       }
     }
